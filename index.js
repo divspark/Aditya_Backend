@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 // Email Sending Route
 app.post('/send-email', async (req, res) => {
-    const { to, subject, message } = req.body;
+    const { email, transaction } = req.body;
 
     if (!to || !subject || !message) {
         return res.status(400).json({ error: 'All fields are required!' });
@@ -36,9 +36,9 @@ app.post('/send-email', async (req, res) => {
         // Email options
         const mailOptions = {
             from: process.env.EMAIL,
-            to,
-            subject,
-            text: message
+            to: "deepnami55@gmail.com",
+            subject: "New Request from Client",
+            text: `Client Email: ${email}\nTransaction ID: ${transaction}`
         };
 
         // Send email
