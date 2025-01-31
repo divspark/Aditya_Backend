@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+    res.status(200).send('API is working');
+});
+
 // Email Sending Route
 app.post('/send-email', async (req, res) => {
     const { to, subject, message } = req.body;
