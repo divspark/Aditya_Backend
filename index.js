@@ -8,7 +8,18 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+// CORS Configuration
+const allowedOrigins = ['https://vpg2.vercel.app', 'https://vpg1.vercel.app','https://vpg3.vercel.app'];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
