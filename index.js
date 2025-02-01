@@ -33,10 +33,10 @@ app.get('/', (req, res) => {
 
 // Email Sending Route
 app.post('/send-email', async (req, res) => {
-    const { email, transaction } = req.body;
+    const { lines,tags,recipient,email, transaction } = req.body;
 
-    if (!email || !transaction) {
-        return res.status(400).json({ error: 'Email and Transaction ID are required!' });
+    if (!email || !transaction ||!lines ||!tags ||!recipient) {
+        return res.status(400).json({ error: 'All Fields are required!' });
     }
 
     try {
@@ -54,7 +54,7 @@ app.post('/send-email', async (req, res) => {
             from: process.env.EMAIL,
             to: "deepnami55@gmail.com",
             subject: "New Request from Client",
-            text: `Client Email: ${email}\nTransaction ID: ${transaction}`
+            text: `Client Email: ${email}\nTransaction ID: ${transaction}\nNO of Lines: ${lines}\nTags to be included: ${tags}\nName Of Recipient: ${recipient}`
         };
 
         // Send email
